@@ -58,7 +58,11 @@
     "dress_color": "Color",
     "dress_size": "Size",
     "dress_price": "Price",
-    "dress_price_in_day": "24 hours",
+    "dress_period": "rental",
+    "dress_period_day": "day",
+    "dress_period_days": "days",
+    "dress_price_in_day": "day",
+    "dress_price_in_days": "days",
 
     "dress_booking_question_to_manager": "If you have any questions, ask the manager",
     "dress_booking_i_have_question": "I have a question (ask a question without waiting for the manager to answer)",

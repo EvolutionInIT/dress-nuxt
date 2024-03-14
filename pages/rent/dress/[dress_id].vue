@@ -4,7 +4,7 @@ import { useDressCatalog } from "~/stores/DressCatalog";
 import DressBook from "~/components/rent/catalog/DressBook.vue";
 import useMetaSeo from "~/composables/useMetaSeo";
 import Categories from "~/components/CategoriesTemplate.vue";
-import Messengers from "~/components/rent/Messengers.vue";
+import LazyMessengers from "~/components/rent/Messengers.vue";
 
 const currentCurrency = computed(() => useCurrencyStore().currentCurrency);
 
@@ -37,7 +37,7 @@ useMetaSeo({
     <div class="relative mx-auto max-w-screen-xl px-4 py-8 <sm:py-4">
       <div class="grid grid-cols-1 items-start gap-8 <sm:gap-2 md:grid-cols-2">
         <div class="grid gap-4 <sm:gap-2 md:grid-cols-1">
-          <Messengers
+          <LazyMessengers
             v-if="dress.user"
             :whatsapp="dress.user.phone"
             :telegram="dress.user.telegram_username"
@@ -146,7 +146,12 @@ useMetaSeo({
                     })
                     .replace(",", " ")
                 }}
-                / {{ $t("rent.dress_price_in_day") }}
+                / {{ dress.period }}
+                {{
+                  dress.period > 1
+                    ? $t("rent.dress_price_in_days")
+                    : $t("rent.dress_price_in_day")
+                }}
               </p>
             </div>
 

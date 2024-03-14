@@ -58,7 +58,11 @@
     "dress_color": "Түс",
     "dress_size": "Өлшем",
     "dress_price": "Бағасы",
-    "dress_price_in_day": "24 сағат",
+    "dress_period": "жалға алу",
+    "dress_period_day": "күнге",
+    "dress_period_days": "күнге",
+    "dress_price_in_day": "күн",
+    "dress_price_in_days": "күн",
 
     "dress_booking_question_to_manager": "Сұрақтарыңыз болса, менеджерден сұраңыз",
     "dress_booking_i_have_question": "Менің сұрағым бар (менеджердің жауабын күтпей сұрақ қойыңыз)",

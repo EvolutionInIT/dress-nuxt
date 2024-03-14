@@ -8,6 +8,11 @@ const props = defineProps({
   telegram: String,
   lang: String,
 });
+const mobile = () => {
+  const cleaned = ("" + props.whatsapp).replace(/\D/g, "");
+  const match = cleaned.match(/^(\d{1,3})(\d{3})(\d{3})(\d{4})$/);
+  return match[1] + " " + match[2] + "-" + match[3] + "-" + match[4];
+};
 </script>
 
 <template>
@@ -32,5 +37,8 @@ const props = defineProps({
     >
       <NuxtImg width="22" class="ml-2" src="/icons8-telegram.svg" />
     </NuxtLink>
+    <NuxtLink :to="`tel:+${props.whatsapp}`" class="hover ml-2"
+      >+{{ mobile() }}</NuxtLink
+    >
   </div>
 </template>

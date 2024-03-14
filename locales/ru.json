@@ -59,7 +59,11 @@
     "dress_color": "Цвет",
     "dress_size": "Размер",
     "dress_price": "Цена",
+    "dress_period": "проката",
+    "dress_period_day": "день",
+    "dress_period_days": "дня",
     "dress_price_in_day": "сутки",
+    "dress_price_in_days": "суток",
 
     "dress_booking_question_to_manager": "Есть вопросы, задайти их менеджеру",
     "dress_booking_i_have_question": "У меня есть вопрос (задавайте вопрос, не ожидая ответа менеджера)",
