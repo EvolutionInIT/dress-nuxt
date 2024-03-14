@@ -27,6 +27,11 @@ export const useAdminRentDressCatalogStore = defineStore(
           price: 0,
         })),
         quantity: 0,
+        wide: 0,
+        home: 0,
+        top: 0,
+        period: 1,
+        order: 0,
         categories: [],
         colors: [],
         sizes: [],
@@ -66,6 +71,11 @@ export const useAdminRentDressCatalogStore = defineStore(
               const form = {
                 dress_id: dress.dress_id,
                 quantity: dress.quantity || 0,
+                wide: dress.wide,
+                home: dress.home,
+                top: dress.top,
+                period: dress.period,
+                order: dress.order,
                 categories: dress.categories.map(
                   (category) => category.category_id
                 ),
@@ -124,6 +134,11 @@ export const useAdminRentDressCatalogStore = defineStore(
         });
 
         formData.append("quantity", form.quantity);
+        formData.append("wide", form.wide ? 1 : 0);
+        formData.append("top", form.top ? 1 : 0);
+        formData.append("home", form.home ? 1 : 0);
+        formData.append("period", form.period);
+        formData.append("order", form.order);
 
         form.categories.map((category) =>
           formData.append("categories[]", category)

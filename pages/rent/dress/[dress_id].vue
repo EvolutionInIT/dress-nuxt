@@ -5,7 +5,6 @@ import DressBook from "~/components/rent/catalog/DressBook.vue";
 import useMetaSeo from "~/composables/useMetaSeo";
 import Categories from "~/components/CategoriesTemplate.vue";
 import Messengers from "~/components/rent/Messengers.vue";
-import { ref } from "vue";
 
 const currentCurrency = computed(() => useCurrencyStore().currentCurrency);
 
@@ -17,6 +16,12 @@ const dress = computed(() => useDressCatalog().dress);
 const photoSelectedIndex = ref(0);
 const changePhotoSelectedIndex = (index) => {
   photoSelectedIndex.value = index;
+};
+
+const handleImageLoad = (img) => {
+  if (img.naturalWidth > img.naturalHeight)
+    img.classList.remove("h-250", "<sm:h-130");
+  else img.classList.add("h-250", "<sm:h-130");
 };
 
 useMetaSeo({
@@ -38,13 +43,15 @@ useMetaSeo({
             :telegram="dress.user.telegram_username"
             :lang="useI18n().locale.value"
           />
-
-          <img
-            class="aspect-square w-full h-250 <sm:h-130 rounded-xl object-cover"
-            placeholder="/img/placeholder.gif"
-            :src="dress.photos[photoSelectedIndex].image"
-            :alt="dress.title"
-          />
+          <ClientOnly>
+            <img
+              class="aspect-square w-full h-250 <sm:h-130 rounded-xl object-cover"
+              placeholder="/img/placeholder.gif"
+              :src="dress.photos[photoSelectedIndex].image"
+              :alt="dress.title"
+              @load="handleImageLoad($event.target)"
+            />
+          </ClientOnly>
           <ul class="mt-1 flex gap-5 <sm:gap-2">
             <li v-for="(photo, key) in dress.photos" :key="key" class="h-50">
               <img

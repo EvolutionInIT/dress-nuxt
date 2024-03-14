@@ -155,27 +155,132 @@ const previewImage = (event) => {
 
       <hr class="my-3" />
 
-      <div class="">
-        <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >{{ $t("admin.dress_quantity") }}</label
-        >
+      <div class="flex">
         <div>
-          <input
-            type="number"
-            v-model="form.quantity"
-            id="quantity"
-            class="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-300 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            :placeholder="$t(`admin.dress_quantity`)"
-            :class="{ 'border-red-500 bg-red-50': errors?.quantity }"
-          />
-          <div
-            v-if="errors?.quantity"
-            class="mt-2 text-sm font-medium text-red-600 dark:text-red-500"
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >{{ $t("admin.dress_quantity") }}</label
           >
-            {{
-              errors?.quantity.map((item) => $t(`validation.${item}`)).join(",")
-            }}
+          <div>
+            <input
+              type="number"
+              v-model="form.quantity"
+              id="quantity"
+              class="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-300 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :placeholder="$t(`admin.dress_quantity`)"
+              :class="{ 'border-red-500 bg-red-50': errors?.quantity }"
+            />
+            <div
+              v-if="errors?.quantity"
+              class="mt-2 text-sm font-medium text-red-600 dark:text-red-500"
+            >
+              {{
+                errors?.quantity
+                  .map((item) => $t(`validation.${item}`))
+                  .join(",")
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="ml-5">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >{{ $t("admin.dress_period") }}</label
+          >
+          <div>
+            <input
+              type="number"
+              v-model="form.period"
+              id="period"
+              class="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-300 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :placeholder="$t(`admin.dress_period`)"
+              :class="{ 'border-red-500 bg-red-50': errors?.period }"
+            />
+            <div
+              v-if="errors?.period"
+              class="mt-2 text-sm font-medium text-red-600 dark:text-red-500"
+            >
+              {{
+                errors?.period.map((item) => $t(`validation.${item}`)).join(",")
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="ml-5">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >{{ $t("admin.dress_order") }}</label
+          >
+          <div>
+            <input
+              type="number"
+              v-model="form.order"
+              id="order"
+              class="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-300 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :placeholder="$t(`admin.dress_order`)"
+              :class="{ 'border-red-500 bg-red-50': errors?.order }"
+            />
+            <div
+              v-if="errors?.order"
+              class="mt-2 text-sm font-medium text-red-600 dark:text-red-500"
+            >
+              {{
+                errors?.order.map((item) => $t(`validation.${item}`)).join(",")
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="ml-5">
+          <div>
+            <input
+              type="checkbox"
+              v-model="form.wide"
+              :id="wide"
+              :value="form.wide"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              :class="{ 'border-red-500 bg-red-50': errors?.wide }"
+            />
+            <label
+              :for="wide"
+              class="ml-1 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              {{ $t("admin.dress_wide") }}
+            </label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              v-model="form.home"
+              :id="home"
+              :value="form.home"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              :class="{ 'border-red-500 bg-red-50': errors?.home }"
+            />
+            <label
+              :for="home"
+              class="ml-1 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              {{ $t("admin.dress_home") }}
+            </label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              v-model="form.top"
+              :id="top"
+              :value="form.top"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              :class="{ 'border-red-500 bg-red-50': errors?.top }"
+            />
+            <label
+              :for="home"
+              class="ml-1 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              {{ $t("admin.dress_top") }}
+            </label>
           </div>
         </div>
       </div>
