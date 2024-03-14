@@ -19,9 +19,38 @@ export default {
 
 <template>
   <div
-    class="group 2xl:w-1/4 xl:w-1/4 lg:w-1/3 md:w-1/2 <sm:w-1/2 <sm:p-2 p-4 w-full"
+    :class="`group ${
+      dress.wide
+        ? '2xl:w-1/2 xl:w-1/2 lg:w-2/3 md:w-full <sm:w-full'
+        : '2xl:w-1/4 xl:w-1/4 lg:w-1/3 md:w-1/2 <sm:w-1/2'
+    } <sm:p-2 p-4 w-full`"
   >
     <div class="relative block h-128 <sm:h-70 rounded-xl overflow-hidden">
+      <div
+        class="absolute rounded bottom-0 left-0 w-auto bg-gray-200 text-center z-index-100 p-1 px-2 m-2 text-sm"
+      >
+        {{ dress.period }}
+        {{
+          dress.period > 1
+            ? $t("rent.dress_period_days")
+            : $t("rent.dress_period_day")
+        }}
+        {{ $t("rent.dress_period") }}
+      </div>
+      <div
+        class="absolute rounded bottom-0 right-0 w-auto bg-gray-200 text-center z-index-100 p-1 px-2 m-2 text-sm"
+      >
+        {{ currentCurrency ? currentCurrency.symbol : "" }}
+        {{
+          dress.price
+            .toLocaleString("kk", {
+              //style: "currency",
+              //currency: currencyCode,
+              minimumFractionDigits: Math.ceil(dress.price % 1) * 2,
+            })
+            .replace(" ", ",")
+        }}
+      </div>
       <NuxtLink
         :to="
           localePath({
@@ -62,18 +91,6 @@ export default {
           {{ dress.title }}
         </NuxtLink>
       </h2>
-      <p class="mt-1 <sm:text-sm">
-        {{ currentCurrency ? currentCurrency.symbol : "" }}
-        {{
-          dress.price
-            .toLocaleString("kk", {
-              //style: "currency",
-              //currency: currencyCode,
-              minimumFractionDigits: Math.ceil(dress.price % 1) * 2,
-            })
-            .replace(" ", ",")
-        }}
-      </p>
     </div>
   </div>
 </template>
