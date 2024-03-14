@@ -98,39 +98,44 @@ export default defineNuxtConfig({
   },
   ssr: true,
   sitemap: {
-    enabled: false,
+    enabled: true,
     autoI18n: false,
     xsl: false,
     urls: async () => {
+      const categoryMap = [];
       const defaultLang = process.env.NUXT_DEFAULT_LOCALE || "en";
-
       const { data: dataCategories } = await axios.get(
         (process.env.NUXT_API_URL ?? "http://localhost/api/") +
-          "v1/client/rent/category/list?per_page=100&lang=" +
+          "v1/client/rent/category/list?with_translations=1&lang=" +
           defaultLang
       );
 
-      const categoryMap = dataCategories.data.map((category) => ({
-        loc: `/${defaultLang}/rent/c/${stringToSlug(category.title)}`,
-        // alternatives: ["en", "ru", "kk", "x-default"].map((lang) => ({
-        //   hreflang: lang,
-        //   href: `/${
-        //     lang == "x-default" ? defaultLang : lang
-        //   }/rent/c/${stringToSlug(category.title)}`,
-        // })),
-        priority: 1.0,
-        changefreq: "weekly",
-      }));
+      //["en", "ru", "kk", "x-default"].map((lang) => ({
 
-      const { data } = await axios.get(
+      dataCategories.data.forEach((category) => {
+        categoryMap.push({
+          loc: `/${defaultLang}/rent/c/${stringToSlug(category.title)}`,
+          alternatives: category.translations.map((item) => ({
+            hreflang: item.language,
+            href: `/${item.language}/rent/c/${stringToSlug(item.title)}`,
+          })),
+          image: category.photos.map((photo) => {
+            return { loc: photo.image };
+          }),
+          priority: 1.0,
+          changefreq: "weekly",
+        });
+      });
+
+      const { data: data2 } = await axios.get(
         (process.env.NUXT_API_URL ?? "http://localhost/api/") +
           "v1/client/rent/dress/list?per_page=100&lang=" +
           defaultLang
       );
 
-      return [
-        ...categoryMap,
-        ...data.data.map((dress) => ({
+      const dressMap = [];
+      data2.data.forEach((dress) => {
+        dressMap.push({
           loc: `/${defaultLang}/rent/dress/${dress.dress_id}`,
           alternatives: ["en", "ru", "kk", "x-default"].map((lang) => ({
             hreflang: lang,
@@ -141,22 +146,13 @@ export default defineNuxtConfig({
           lastmod: dress.updated_at,
           changefreq: "monthly",
           priority: 1.0,
-          image: dress.photo.map((photo) => {
+          image: dress.photos.map((photo) => {
             return { loc: photo.image };
           }),
-        })),
-      ];
-    },
-    filter({ routes }) {
-      return routes.map((route) => {
-        route.links = [
-          ["kk", "ru", "en"].map((lang) => ({
-            lang: lang,
-            url: `${lang}/${url}`,
-          })),
-        ];
-        return route;
+        });
       });
+
+      return [...categoryMap, ...dressMap];
     },
   },
   gtag: {
