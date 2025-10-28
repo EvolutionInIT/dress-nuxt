@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "unidecode": "^0.1.8",
-    "vue-tailwind-datepicker": "^1.7.2"
+    "vue-tailwind-datepicker": "^1.7.4"
   }
 }
